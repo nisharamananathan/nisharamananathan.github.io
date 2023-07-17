@@ -47,16 +47,17 @@
     <h1>Data Visualization Project CS 416</h1>
     <p>
         This dataset contains information about passengers on the Titanic, including an ID, whether a passenger survived
-        or not, class (1, 2, or 3), name, sex, age, number of siblings or spouses on the Titanic, number of parents or children
+        or not, class (1, 2, or 3), name, sex, age, number of siblings or spouses on the Titanic, number of parents or
+        children
         on the Titanic, ticket number, and ticket fare. The charts below dissect this information to determine 3 things:
     </p>
-    <p> 
+    <p>
         (1) The percent of passengers that survived vs did not survive the Titanic
     </p>
-    <p> 
+    <p>
         (2) xxx
     </p>
-    <p> 
+    <p>
         (3) xxx
     </p>
     <br>
@@ -149,7 +150,7 @@
             <br>
             <p>
                 As depicted, a higher percentage of passengers did not survive the titanic compared to those that did
-                survive. Only 38.4% of passengers survived while 61.6% of passengers did not. 
+                survive. Only 38.4% of passengers survived while 61.6% of passengers did not.
             </p>
             <br>
 </body>
@@ -219,132 +220,77 @@
             </p>
             <div id="chart_2">
                 <script src='https://d3js.org/d3.v5.min.js'></script>
-                <style> rect {fill: red; stroke: black; }</style>
+                <style>
+                    rect {
+                        fill: red;
+                        stroke: black;
+                    }
+                </style>
+
                 <body>
                     <svg width=400 height=400></svg>
                     <script>
                         // create bar chart
-                        // async function barChart() {
-                        //     var response = await fetch("Titanic-Dataset.csv");
-                        //     var data = await response.text();
-                        //     data = d3.csvParse(data);
-
-                        //     data.forEach(function (d) {
-                        //         d.Pclass = +d.Pclass;
-                        //         d.Survived = +d.Survived;
-                        //     });
-
-                        //     filterData(data);
-                        // }
-
-                        // function filterData(data) {
-
-                        //     var width = 400;
-                        //     var height = 400;
-                        //     var margin = { top: 50, right: 50, bottom: 50, left: 50 };
-
-                        //     var bar_chart_0 = data.filter(function(d) {
-                        //         return d.Survived === 0;
-                        //     });
-
-                        //     var svg = d3.select("svg").attr("width", width).attr("height", height);
-
-                        //     var x_domain = data.map(function(d) {return d.Pclass; });
-                        //     var y_domain = d3.max(data, function(d) { return d.Survived; });
-
-                        //     var x = d3.scaleBand().domain(x_domain).range([50, 350]);
-                        //     var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
-
-                        //     svg.append("g")
-                        //         .attr("transform", "translate(0,350)")
-                        //         .call(d3.axisBottom(x));
-
-                        //     svg.append("g")
-                        //         .attr("transform", "translate(50,0)")
-                        //         .call(d3.axisLeft(y));
-
-                        //     svg.selectAll(".bar")
-                        //         .data(bar_chart_0)
-                        //         .enter()
-                        //         .append("rect")
-                        //         .attr("class", "bar")
-                        //         .attr("x", function(d) { return x(d.Pclass); })
-                        //         .attr("y", function(d) { return y(d.Survived); })
-                        //         .attr("width", x.bandwidth())
-                        //         .attr("height", function(d) { return height - margin.bottom - y(d.Survived); })
-                        //         .attr("fill", "red");
-                        // }
-                        // barChart();
-                        async function fetchData() {
+                        async function barChart() {
                             var response = await fetch("Titanic-Dataset.csv");
                             var data = await response.text();
                             data = d3.csvParse(data);
 
-                            data.forEach(function(d) {
+                            data.forEach(function (d) {
                                 d.Pclass = +d.Pclass;
                                 d.Survived = +d.Survived;
                             });
 
-                            createBarChart(data);
-                            }
+                            filterData(data);
+                        }
 
-                            function createBarChart(data) {
+                        function filterData(data) {
+
                             var width = 400;
-                            var height = 300;
-                            var margin = { top: 20, right: 20, bottom: 30, left: 40 };
+                            var height = 400;
 
-                            // Filter the data to only include passengers who did not survive
-                            var notSurvivedData = data.filter(function(d) {
+                            var bar_chart_0 = data.filter(function (d) {
                                 return d.Survived === 0;
                             });
 
-                            var svg = d3.select("#chart")
-                                .attr("width", width)
-                                .attr("height", height);
+                            var x_domain = data.map(function (d) { return d.Pclass; });
+                            var y_domain = d3.max(data, function (d) { return d.Survived; });
 
-                            var x = d3.scaleBand()
-                                .domain(data.map(function(d) { return d.Pclass; }))
-                                .range([margin.left, width - margin.right])
-                                .padding(0.1);
+                            var x = d3.scaleBand().domain(x_domain).range([50, 350]);
+                            var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
 
-                            var y = d3.scaleLinear()
-                                .domain([0, d3.max(data, function(d) { return d.Survived; })])
-                                .range([height - margin.bottom, margin.top]);
+                            var svg = d3.select("svg").attr("width", width).attr("height", height);
+                            var g = svg.append("g").attr("transform", "translate(50,50)");
 
-                            var xAxis = d3.axisBottom(x);
-                            var yAxis = d3.axisLeft(y);
-
-                            svg.append("g")
-                                .attr("transform", "translate(0," + (height - margin.bottom) + ")")
-                                .call(xAxis);
-
-                            svg.append("g")
-                                .attr("transform", "translate(" + margin.left + ",0)")
-                                .call(yAxis);
-
-                            // Draw bars for Pclass with not survived passengers
-                            svg.selectAll(".bar")
-                                .data(notSurvivedData)
-                                .enter().append("rect")
-                                .attr("class", "bar")
-                                .attr("x", function(d) { return x(d.Pclass); })
-                                .attr("y", function(d) { return y(d.Survived); })
+                            g.selectAll("rect")
+                                .data(data)
+                                .enter()
+                                .append("rect")
+                                .attr("x", function (d) { return x(d.Pclass); })
+                                .attr("y", function (d) { return y(d.Survived); })
                                 .attr("width", x.bandwidth())
-                                .attr("height", function(d) { return height - margin.bottom - y(d.Survived); })
-                                .attr("fill", "red");
-                            }
+                                .attr("height", function (d) { return 350 - y(d.Survived); })
 
-                            fetchData();
+                            svg.append("g")
+                                .attr("transform", "translate(50,50)")
+                                .call(d3.axisLeft(y));
+
+                            svg.append("g")
+                                .attr("transform", "translate(50,350)")
+                                .call(d3.axisBottom(x));
+                        }
+                        barChart();
                     </script>
-                </body>  
+                </body>
+
                 <body>
             </div>
-<!-- <div id="controls">
+            <!-- <div id="controls">
                     <button id="prev">Previous</button>
                     <button id="next">Next</button>
                 </div> -->
-</div>
-</div>
+        </div>
+    </div>
 </body>
 
 </html>
