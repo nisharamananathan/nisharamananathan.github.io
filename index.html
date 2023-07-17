@@ -26,6 +26,9 @@
             font-size: 20px;
             text-align: left;
             }
+            #chart_1 {
+            align-items: center        
+            }
             #controls {
             text-align: center;
             margin-top: 20px;
@@ -51,6 +54,7 @@
                 <p> 
                     This pie chart shows the percentage of passengers on the Titanic that survived and did not survive. This first slide is a general overview, which will be disected more in depth in the following slides. 
                 </p>
+                <div id="chart_1">
                 <script src='https://d3js.org/d3.v5.min.js'></script>
                 <style> path {stroke: black;}</style>
                 <body>
@@ -118,6 +122,7 @@
                         }
                         fetchData();
                     </script>
+                    </div>
                 </body>
                 <div id="controls">
                     <button id="prev">Previous</button>
