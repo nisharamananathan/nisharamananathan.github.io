@@ -108,13 +108,13 @@
                                 .attr("d", arc)
                                 .attr("fill", function(d, i) { return color[i]; });
 
-                                arcs.append("text")
-                                    .attr("transform", function(d) {var centroid = arc.centroid(d); 
-                                        return "translate(" + centroid[0] + "," + centroid[1] + ")";})
-                                    .attr("text-anchor", "middle")
-                                    .text(function(d) {var percentage = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
-                                        return d.data.label + " (" + percentage.toFixed(1) + "%)";
-                                    });
+                            arcs.append("text")
+                                .attr("transform", function(d) {var centroid = arc.centroid(d); 
+                                    return "translate(" + centroid[0] + "," + centroid[1] + ")";})
+                                .attr("text-anchor", "middle")
+                                .text(function(d) {var percentage = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
+                                    return d.data.label + "\n" + " (" + percentage.toFixed(1) + "%)";
+                            });
                         }
                         fetchData();
                     </script>
