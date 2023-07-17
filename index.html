@@ -26,17 +26,17 @@
             font-size: 20px;
             text-align: left;
             }
-            #controls {
+            /* #controls {
             text-align: center;
             margin-top: 20px;
-            }
+            } */
         </style>
     </head>
-    <script>
+    <!-- <script>
         function ButtonClick() {
             // what to do when button is clicked
         }
-    </script>
+    </script> -->
     <body>
         <h1>Data Visualization Project CS 416</h1>
         <p> 
@@ -121,20 +121,10 @@
                         </script>
                     </div>
                 </body>
-                <div id="controls">
+                <!-- <div id="controls">
                     <button id="prev">Previous</button>
                     <button id="next">Next</button>
-                </div>
-            </div>
-            <div id="slides">
-            <h2>xxx</h2>
-                <p> 
-                    xxx 
-                </p>
-                <div id="controls">
-                    <button id="prev">Previous</button>
-                    <button id="next">Next</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </body>
@@ -142,12 +132,66 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Your Page Title</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-  <p>Welcome to my new webpage.</p>
-</body>
+    <head> 
+        <meta charset="UTF-8">
+        <style>
+            body {
+            background-color: rgb(195, 240, 241);
+            }
+            h1 {
+            color: #333;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 65px;
+            font-weight: bold;
+            text-align: center;
+            }
+            h2 {
+            color: #333;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 35px;
+            font-weight: bold;
+            text-align: left;
+            }
+            p {
+            color: #333;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 20px;
+            text-align: left;
+            }
+            /* #controls {
+            text-align: center;
+            margin-top: 20px;
+            } */
+        </style>
+    </head>
+    <!-- <script>
+        function ButtonClick() {
+            // what to do when button is clicked
+        }
+    </script> -->
+    <body>
+        <hr>
+        <div id="slideshow">
+            <div id="slides">
+            <h2>Scatterplot of xxx</h2>
+                <p> 
+                    xxxxx
+                </p>
+                <div id="chart_2">
+                    <script src='https://d3js.org/d3.v5.min.js'></script>
+                    <style> path {stroke: black;}</style>
+                    <body>
+                        <svg width="400" height="400"></svg>
+                        <script>
+                            // create scatterplot
+                        </script>
+                    </div>
+                </body>
+                <!-- <div id="controls">
+                    <button id="prev">Previous</button>
+                    <button id="next">Next</button>
+                </div> -->
+            </div>
+        </div>
+    </body>
 </html>
