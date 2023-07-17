@@ -72,8 +72,8 @@
                             var not_survived = data.length - survived;
 
                             var pieData = [
-                                { label: "Survived", count: survived },
-                                { label: "Not Survived", count: not_survived }
+                                {label: "Survived", count: survived },
+                                {label: "Not Survived", count: not_survived }
                             ];
 
                             var width = 400;
@@ -112,8 +112,8 @@
                                 .attr("transform", function(d) {var centroid = arc.centroid(d); 
                                     return "translate(" + centroid[0] + "," + centroid[1] + ")";})
                                 .attr("text-anchor", "middle")
-                                .text(function(d) {var percentage = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
-                                    return d.data.label + "\n" + " (" + percentage.toFixed(1) + "%)";
+                                .text(function(d) {var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
+                                    return d.data.label + "\n" + " (" + percent.toFixed(1) + "%)";
                             });
                         }
                         fetchData();
