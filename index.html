@@ -50,58 +50,57 @@
             <h2>Pie Chart of Survived and Not Survived Titanic Passengers</h2>
                 <p> 
                     This pie chart shows the percentage of passengers on the Titanic that survived and did not survive. This first slide is a general overview, which will be disected more in depth in the following slides. 
+                </p>
+                <script src='https://d3js.org/d3.v5.min.js'></script>
+                <style> path {stroke: black;}</style>
+                <body>
+                    <svg width="400" height="400"></svg>
+                    <script>
+                        async function fetchData() {
+                            var response = await fetch("Titanic-Dataset.csv");
+                            var data = await response.text();
+                            data = d3.csvParse(data);
 
-                    <script src='https://d3js.org/d3.v5.min.js'></script>
-                    <style> path {stroke: black;}</style>
-                    <body>
-                        <svg width=400 height=400></svg>
-                        <script>
-                            async function fetchData() {
-                                var response = await fetch("Titanic-Dataset.csv");
-                                var data = await response.text();
-                                data = d3.csvParse(data);
-
-                                data.forEach(function(d) {
-                                    d.Survived = +d.Survived;
+                            data.forEach(function(d) {
+                                d.Survived = +d.Survived;
                             });
 
                             var color = ['green', 'red'];
 
-                            var survived = d3.sum(data, function(d) {return d.Survived; });
+                            var survived = d3.sum(data, function(d) { return d.Survived; });
                             var not_survived = data.length - survived;
 
                             var pieData = [
-                                {label: "Survived", count: survived},
-                                {label: "Not Survived", count: not_survived }
+                                { label: "Survived", count: survived },
+                                { label: "Not Survived", count: not_survived }
                             ];
 
                             var width = 400;
                             var height = 400;
                             var radius = 200;
 
-                            var pie = d3.pie().value(function(d) {return d.count; });
+                            var pie = d3.pie().value(function(d) { return d.count; });
                             var arc = d3.arc()
                                 .innerRadius(0)
                                 .outerRadius(radius);
 
-                            var svg = d3.append("svg")
+                            var svg = d3.select("svg")
                                 .attr("width", width)
                                 .attr("height", height);
 
                             var g = svg.append("g")
-                                .attr("transform", "translate(200,200)");
+                        
 
                             g.selectAll("arc")
                                 .data(pie(pieData))
                                 .enter()
                                 .append("path")
                                 .attr("d", arc)
-                                .attr("fill", function(d,i) {return color[i]; })
-
-                            fetchData();
-                        </script>
-                    </body>
-                </p>
+                                .attr("fill", function(d, i) { return color[i]; });
+                        }
+                        fetchData();
+                    </script>
+                </body>
                 <div id="controls">
                     <button id="prev">Previous</button>
                     <button id="next">Next</button>
