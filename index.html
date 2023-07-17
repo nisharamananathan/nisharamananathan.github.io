@@ -99,16 +99,16 @@
                                 .attr("fill", function(d, i) {return color[i]; });
                             
                             // add annotations to pie chart
-                            var arcs = g.selectAll("arc")
+                            var annotation = g.selectAll("arc")
                                 .data(pie(pieData))
                                 .enter()
                                 .append("g");
                             
-                            arcs.append("path")
+                            annotation.append("path")
                                 .attr("d", arc)
                                 .attr("fill", function(d, i) {return color[i]; });
 
-                            arcs.append("text")
+                            annotation.append("text")
                                 .attr("transform", function(d) {var centroid = arc.centroid(d); 
                                     return "translate(" + centroid[0] + "," + centroid[1] + ")";})
                                 .attr("text-anchor", "middle")
