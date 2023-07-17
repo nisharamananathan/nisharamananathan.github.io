@@ -71,8 +71,8 @@
                             var not_survived = data.length - survived;
 
                             var pieData = [
-                            {label: "Survived", count: survived},
-                            {label: "Not Survived", count: not_survived }
+                                {label: "Survived", count: survived},
+                                {label: "Not Survived", count: not_survived }
                             ];
 
                             var width = 400;
@@ -86,7 +86,7 @@
 
                             var svg = d3.append("svg")
                                 .attr("width", width)
-                                .attr("height", height)
+                                .attr("height", height);
 
                             var g = svg.append("g")
                                 .attr("transform", "translate(200,200)");
