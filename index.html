@@ -88,8 +88,7 @@
                                 .attr("width", width)
                                 .attr("height", height);
 
-                            var g = svg.append("g")
-                        
+                            var g = svg.append("g").attr("transform", "translate(200,200)")
 
                             g.selectAll("arc")
                                 .data(pie(pieData))
