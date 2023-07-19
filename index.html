@@ -272,11 +272,11 @@
                                 .attr("height", function (d) { return 350 - y(d.Survived); })
 
                             svg.append("g")
-                                .attr("transform", "translate(50,50)")
+                                .attr("transform", "translate(150,0)")
                                 .call(d3.axisLeft(y));
 
                             svg.append("g")
-                                .attr("transform", "translate(0,300)")
+                                .attr("transform", "translate(50,350)")
                                 .call(d3.axisBottom(x));
                         }
                         barChart();
