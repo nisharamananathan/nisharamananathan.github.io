@@ -253,10 +253,8 @@
                                 return d.Survived === 0;
                             });
 
-                            // var x_domain = data.map(function (d) { return d.Pclass; });
-                            var y_domain = data.max(data, function (d) { return d.Survived; });
-
-                            var x = d3.scaleBand().domain([1,2,3]).range([50, 350]);
+                            var y_domain = d3.max(bar_chart_0, function (d) { return d.Survived; });
+                            var x = d3.scaleBand().domain([1, 2, 3]).range([50, 350]);
                             var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
 
                             var svg = d3.select("svg").attr("width", width).attr("height", height);
@@ -283,7 +281,6 @@
                     </script>
                 </body>
 
-                <body>
             </div>
             <!-- <div id="controls">
                     <button id="prev">Previous</button>
