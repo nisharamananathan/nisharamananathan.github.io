@@ -253,10 +253,10 @@
                                 return d.Survived === 0;
                             });
 
-                            var x_domain = data.map(function (d) { return d.Pclass; });
+                            // var x_domain = data.map(function (d) { return d.Pclass; });
                             var y_domain = d3.max(data, function (d) { return d.Survived; });
 
-                            var x = d3.scaleBand().domain(x_domain).range([50, 350]);
+                            var x = d3.scaleBand().domain([1,2,3]).range([50, 350]);
                             var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
 
                             var svg = d3.select("svg").attr("width", width).attr("height", height);
