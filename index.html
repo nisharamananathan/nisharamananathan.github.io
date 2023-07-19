@@ -253,12 +253,10 @@
                                 return d.Survived === 0;
                             });
 
-                            var y_domain_1 = d3.sum(bar_chart_0, function (d) { return d.Survived && d.Pclass === 1; });
-                            var y_domain_2 = d3.max(bar_chart_0, function (d) { return d.Survived; });
-                            var y_domain_3 = d3.max(bar_chart_0, function (d) { return d.Survived; });
+                            var y_domain = d3.sum(bar_chart_0, function (d) { return d.Survived; });
 
                             var x = d3.scaleBand().domain([1, 2, 3]).range([50, 350]);
-                            var y = d3.scaleLinear().domain([0, y_domain_1]).range([350, 50]);
+                            var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
 
                             var svg = d3.select("svg").attr("width", width).attr("height", height);
                             var g = svg.append("g").attr("transform", "translate(50,0)");
