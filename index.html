@@ -146,28 +146,6 @@
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
                                     return d.data.label + " (" + percent.toFixed(1) + "%)";
                                 });
-
-                            // add tooltip to pie chart
-                            var arcs = g.selectAll("arc")
-                                .data(pie(pieData))
-                                .enter()
-                                .append("g")
-                                .attr("class", "arc")
-
-                            arcs.append("path")
-                                .attr("d", arc)
-                                .attr("fill", function (d, i) { return color[i]; })
-                                .on("mouseover", function (d) {
-                                    var gender = data.filter(function (item) {
-                                        return item.Survived === (d.data.label === "Survived" ? 1 : 0);
-                                    }).map(function (item) { return item.Sex });
-
-                                    var tooltipText = d.data.label + " (" + ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100 + "%)<br>" + gender.join(", ");
-                                    showTooltip(tooltipText);
-                                })
-                                .on("mouseout", function () {
-                                    hideTooltip();
-                                });
                         }
                         pieChart();
                     </script>
