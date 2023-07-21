@@ -117,7 +117,7 @@
                             var svg = d3.select("svg")
                                 .attr("width", width)
                                 .attr("height", height);
-                                
+
                             var g = svg.append("g").attr("transform", "translate(200,200)");
 
                             g.selectAll("arc")
@@ -126,7 +126,7 @@
                                 .append("path")
                                 .attr("d", arc)
                                 .attr("fill", function (d, i) { return color[i]; });
-                            
+
                             //add annotations to pie chart
                             var annotation = g.selectAll("arc")
                                 .data(pie(pieData))
@@ -153,7 +153,8 @@
             </div>
             <br>
             <p>
-                xxx
+                As shown, a higher percentage of passengers on the Titanic were men compared to women. Only 35.2% of
+                passengers were women while 64.8% of passengers were male.
             </p>
             <br>
 </body>
