@@ -220,7 +220,7 @@
         <div id="slide 2">
             <h2>Bar Chart of Not Survived Titanic Passengers Grouped by Class</h2>
             <p>
-                This bar chart shows the number of passengers per class who did not survive the Titanic. 
+                This bar chart shows the number of passengers per class who did not survive the Titanic.
             </p>
             <div id="chart_2">
                 <script src='https://d3js.org/d3.v5.min.js'></script>
@@ -232,6 +232,12 @@
 
                     .bar-label {
                         font-family: 'Trebuchet MS', sans-serif;
+                    }
+
+                    .axis-title {
+                        font-family: 'Trebuchet MS', sans-serif;
+                        font-weight: bold;
+                        text-anchor: middle;
                     }
                 </style>
 
@@ -307,6 +313,20 @@
                                 .attr("y", function (d) { return y(d) - 10; })
                                 .attr("text-anchor", "middle")
                                 .text(function (d) { return d; });
+
+                            // aadd xis titles
+                            svg.append("text")
+                                .attr("class", "axis-title")
+                                .attr("x", width / 2)
+                                .attr("y", height + 35)
+                                .text("Class Number");
+
+                            svg.append("text")
+                                .attr("class", "axis-title")
+                                .attr("x", -200)
+                                .attr("y", height / 2)
+                                .attr("transform", "rotate(-90)")
+                                .text("Number of Passengers Not Survived");
                         }
                         barChart();
                     </script>
@@ -316,7 +336,7 @@
                 As shown, more passengers on the Titanic in class 3 did not survive the accident compared to those in
                 groups 1 and 2. Amongst groups 1 and 2, more passengers in group 2 did not survive the Titanic. 80
                 passengers in group 1, 97 passengers in group 2, and 372 passengers in group 3 did not survive the
-                Titanic. 
+                Titanic.
             </p>
             <br>
 </body>
