@@ -70,6 +70,7 @@
             <br>
             <div id="chart_1">
                 <script src='https://d3js.org/d3.v5.min.js'></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
                 <style>
                     path {
                         stroke: black;
@@ -146,6 +147,61 @@
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
                                     return d.data.label + " (" + percent.toFixed(1) + "%)";
                                 });
+
+                            // add tooltip to pie chart
+                            var tip = d3.tip()
+                                .attr("class", "d3-tip")
+                                .offset([-10, 0])
+                                .html(function (d) {
+                                    return d.data.label + " (" + d.data.count + " passengers)<br>"
+                                        + "Male: " + d.data.genderData.male + "<br>"
+                                        + "Female: " + d.data.genderData.female;
+                                });
+
+                            svg.call(tip);
+
+                            var arcs = g.selectAll("arc")
+                                .data(pie(pieData))
+                                .enter()
+                                .append("g")
+                                .attr("class", "arc")
+                                .on("mouseover", tip.show) 
+                                .on("mouseout", tip.hide);
+
+                            arcs.append("path")
+                                .attr("d", arc)
+                                .attr("fill", function (d, i) { return color[i]; });
+
+                            arcs.append("text")
+                                .attr("transform", function (d) {
+                                    var centroid = arc.centroid(d);
+                                    return "translate(" + centroid[0] + "," + centroid[1] + ")";
+                                })
+                                .attr("text-anchor", "middle")
+                                .style("font-family", "Trebuchet MS")
+                                .text(function (d) {
+                                    var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
+                                    return d.data.label + " (" + percent.toFixed(1) + "%)";
+                                });
+                        }
+
+                        function extractGenderData(data, survivedValue) {
+                            var genderData = {
+                                male: 0,
+                                female: 0
+                            };
+
+                            data.forEach(function (d) {
+                                if (d.Survived === survivedValue) {
+                                    if (d.Sex === "male") {
+                                        genderData.male++;
+                                    } else if (d.Sex === "female") {
+                                        genderData.female++;
+                                    }
+                                }
+                            });
+
+                            return genderData;
                         }
                         pieChart();
                     </script>
