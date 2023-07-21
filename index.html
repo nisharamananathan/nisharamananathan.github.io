@@ -153,15 +153,6 @@
                 survive. Only 38.4% of passengers survived while 61.6% of passengers did not.
             </p>
             <br>
-
-            <button onclick="goToChart2()">Go to Chart 2</button>
-            <a href="chart2.html">Go to Chart 2</a>
-
-            <script>
-                function goToChart2() {
-                    window.location.href = "chart2.html";
-                }
-            </script>
 </body>
 <!-- <div id="controls">
                     <button id="prev">Previous</button>
@@ -301,6 +292,16 @@
                             svg.append("g")
                                 .attr("transform", "translate(50,350)")
                                 .call(d3.axisBottom(x));
+
+                            // add annotations to bar chart
+                            g.selectAll(".label")
+                                .data([p_1_length, p_2_length, p_3_length])
+                                .enter()
+                                .append("text")
+                                .attr("class", "label")
+                                .attr("x", function (d) { return x(d.Pclass) + x.bandwidth() / 2; })
+                                .attr("y", function (d) { return y(d.Survived) - 5; })
+                                .text(function (d) { return d.Survived; });
                         }
                         barChart();
                     </script>
@@ -310,15 +311,6 @@
                 description here
             </p>
             <br>
-
-            <button onclick="goToChart1()">Go to Chart 1</button>
-            <a href="chart1.html">Go to Chart 1</a>
-
-            <script>
-                function goToChart1() {
-                    window.location.href = "chart1.html";
-                }
-            </script>
 </body>
 
 </div>
