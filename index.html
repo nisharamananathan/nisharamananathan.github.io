@@ -31,6 +31,10 @@
             text-align: left;
         }
 
+        #chart_1_svg {
+            margin-bottom: 30px;
+        }
+
         /* #controls {
             text-align: center;
             margin-top: 20px;
@@ -83,7 +87,7 @@
                 </style>
 
                 <body>
-                    <svg width="400" height="400"></svg>
+                    <svg id="chart_1_svg" width="400" height="400"></svg>
                     <script>
                         // create pie chart
                         async function pieChart() {
@@ -240,7 +244,7 @@
                 </style>
 
                 <body>
-                    <svg width=400 height=400></svg>
+                    <svg id="chart_2_svg" width=400 height=400></svg>
                     <script>
                         // create bar chart
                         async function barChart() {
