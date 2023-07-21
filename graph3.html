@@ -143,6 +143,7 @@
                                     return "translate(" + centroid[0] + "," + centroid[1] + ")";
                                 })
                                 .attr("text-anchor", "middle")
+                                .style("font-family", "Trebuchet MS")
                                 .text(function (d) {
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
                                     return d.data.label + " (" + percent.toFixed(1) + "%)";
