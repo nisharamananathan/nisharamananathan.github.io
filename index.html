@@ -125,53 +125,6 @@
                                 .attr("d", arc)
                                 .attr("fill", function (d, i) { return color[i]; });
 
-                            // add interactivity (tooltip)
-                            // var tooltip = d3.select("#tooltip");
-
-                            // var num_male_0 = data.filter(function (d) {
-                            //     return (d.Survived === 0 && d.Sex === "male");
-                            // }).length;
-                            
-                            // var num_female_0 = data.filter(function (d) {
-                            //     return (d.Survived === 0 && d.Sex === "female");
-                            // }).length;
-                            
-                            // var percent_male_0 = num_male_0 / (num_male_0 + num_female_0);
-                            // var percent_female_0 = num_female_0 / (num_male_0 + num_female_0);
-
-                            // var num_male_1 = data.filter(function (d) {
-                            //     return (d.Survived === 0 && d.Sex === "male");
-                            // }).length;
-                            
-                            // var num_female_1 = data.filter(function (d) {
-                            //     return (d.Survived === 0 && d.Sex === "female");
-                            // }).length;
-                            
-                            // var percent_male_1 = num_male_1 / (num_male_1 + num_female_1);
-                            // var percent_female_1 = num_female_1 / (num_male_1 + num_female_1);
-
-                            // g.selectAll("arc")
-                            //     .data(pie(pieData))
-                            //     .enter()
-                            //     .append("path")
-                            //     .attr("d", arc)
-                            //     .attr("fill", function (d, i) { return color[i]; })
-                            //     .on("mouseover", function (d) {
-                            //         var tooltipText = d.data.label + " (" + d.data.percent.toFixed(1) + "%)";
-
-                            //         var tooltipText = "Gender Distribution for " + d.data.label + ":<br>"
-                            //             + "Male: " + genderDistribution.male + "<br>"
-                            //             + "Female: " + genderDistribution.female;
-
-                            //         tooltip.html(tooltipText)
-                            //             .style("visibility", "visible")
-                            //             .style("left", (d3.event.pageX + 10) + "px")
-                            //             .style("top", (d3.event.pageY - 20) + "px");
-                            //     })
-                            //     .on("mouseout", function () {
-                            //         tooltip.style("visibility", "hidden");
-                            //     });
-
                             // add annotations to pie chart
                             var annotation = g.selectAll("arc")
                                 .data(pie(pieData))
