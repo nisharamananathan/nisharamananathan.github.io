@@ -47,13 +47,15 @@
         on the Titanic, ticket number, and ticket fare. The charts below dissect this information to determine 3 things:
     </p>
     <p>
-        (1) The percent of passengers that survived vs did not survive the Titanic
+        (1) The percent of passengers that survived vs did not survive the Titanic. This chart also includes details on
+        the gender distribution of men and women who survived vs did not survive.
     </p>
     <p>
         (2) The amount of passengers in each class that did not survive the Titanic
     </p>
     <p>
-        (3) xxx
+        (3) The percent of passengers on the Titanic who were men and women. This chart also provides an overview of the
+        average age of these passengers on the Titanic.
     </p>
     <br>
     <hr>
@@ -141,6 +143,27 @@
                                 .text(function (d) {
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
                                     return d.data.label + " (" + percent.toFixed(1) + "%)";
+                                });
+
+                            // add interactivity
+                            var tooltip = d3.select("#tooltip");
+
+                            g.selectAll("arc")
+                                .data(pie(pieData))
+                                .enter()
+                                .append("path")
+                                .attr("d", arc)
+                                .attr("fill", function (d, i) { return color[i]; })
+                                .on("mouseover", function (d) {
+                                    var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
+                                    var tooltipText = d.data.label + " (" + percent.toFixed(1) + "%)";
+                                    tooltip.text(tooltipText)
+                                        .style("visibility", "visible")
+                                        .style("left", (d3.event.pageX + 10) + "px")
+                                        .style("top", (d3.event.pageY - 20) + "px");
+                                })
+                                .on("mouseout", function () {
+                                    tooltip.style("visibility", "hidden");
                                 });
                         }
                         pieChart();
