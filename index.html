@@ -249,41 +249,37 @@
                             var width = 400;
                             var height = 400;
 
-                            // var new_data = data.filter(function (d) {
-                            //     return d.Survived === 0;
-                            // });
-
-                            // find domain
-                            var p_class_1 = data.filter(function (d) {
-                                return (d.Survived === 0 && d.Pclass === 1);
+                            var new_data = data.filter(function (d) {
+                                return d.Survived === 0;
                             });
-                            var p_1_length = p_class_1.length;
 
-                            var p_class_2 = data.filter(function (d) {
-                                return (d.Survived === 0 && d.Pclass === 2);
-                            });
-                            var p_2_length = p_class_2.length;
+                            var p_1_length = new_data.filter(function (d) {
+                                return Pclass === 1;
+                            }).length;
 
-                            var p_class_3 = data.filter(function (d) {
-                                return (d.Survived === 0 && d.Pclass === 3);
-                            });
-                            var p_3_length = p_class_3.length;
+                            var p_2_length = new_data.filter(function (d) {
+                                return d.Pclass === 2;
+                            }).length;
+
+                            var p_3_length = new_data.filter(function (d) {
+                                return d.Pclass === 3;
+                            }).length;
 
                             var y_domain = Math.max(p_1_length, p_2_length, p_3_length);
-                            var x = d3.scaleBand().domain([1, 2, 3]).range([50, 350]);
+                            var x = d3.scaleBand().domain([1, 2, 3]).range([50, 350]).padding(0.1);
                             var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
 
                             var svg = d3.select("svg").attr("width", width).attr("height", height);
                             var g = svg.append("g").attr("transform", "translate(50,0)");
 
                             g.selectAll("rect")
-                                .data(data)
+                                .data([p_1_length, p_2_length, p_3_length])
                                 .enter()
                                 .append("rect")
-                                .attr("x", function (d) { return x(d.Pclass); })
-                                .attr("y", function (d) { return y(d.Survived); })
+                                .attr("x", function (d, i) { return x(i + 1); })
+                                .attr("y", function (d) { return y(d); })
                                 .attr("width", x.bandwidth())
-                                .attr("height", function (d) { return 350 - y(d.Survived); })
+                                .attr("height", function (d) { return 350 - y(d); })
 
                             svg.append("g")
                                 .attr("transform", "translate(100,0)")
