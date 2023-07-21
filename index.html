@@ -122,7 +122,7 @@
                                 .attr("width", width)
                                 .attr("height", height);
 
-                            var g = svg.append("g").attr("transform", "translate(200,200)");
+                            var g = svg.append("g").attr("transform", "translate(300,200)");
 
                             g.selectAll("arc")
                                 .data(pie(pieData))
@@ -206,7 +206,7 @@
                                 }
                             });
 
-                            return (genderData / (genderData.male + genderData.female));
+                            return genderData;
                         }
                         pieChart();
                     </script>
