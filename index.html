@@ -294,14 +294,15 @@
                                 .call(d3.axisBottom(x));
 
                             // add annotations to bar chart
-                            g.selectAll(".label")
+                            g.selectAll(".bar-label")
                                 .data([p_1_length, p_2_length, p_3_length])
                                 .enter()
                                 .append("text")
-                                .attr("class", "label")
-                                .attr("x", function (d) { return x(d.Pclass) + x.bandwidth() / 2; })
-                                .attr("y", function (d) { return y(d.Survived) - 5; })
-                                .text(function (d) { return d.Survived; });
+                                .attr("class", "bar-label")
+                                .attr("x", function (d, i) { return x(i + 1) + x.bandwidth() / 2; })
+                                .attr("y", function (d) { return y(d) - 10; })
+                                .attr("text-anchor", "middle")
+                                .text(function (d) { return d; });
                         }
                         barChart();
                     </script>
