@@ -55,7 +55,7 @@
         (1) The percent of passengers that survived vs did not survive the Titanic
     </p>
     <p>
-        (2) xxx
+        (2) The amount of passengers in each class that did not survive the Titanic
     </p>
     <p>
         (3) xxx
@@ -249,11 +249,22 @@
                             var width = 400;
                             var height = 400;
 
-                            var bar_chart_0 = data.filter(function (d) {
-                                return d.Survived === 0;
+                            var p_class_1 = data.filter(function (d) {
+                                return (d.Survived === 0 && d.Pclass === 1);
                             });
+                            var p_1_length = p_class_1.length;
 
-                            var y_domain = d3.sum(bar_chart_0, function (d) { return d.Survived; });
+                            var p_class_2 = data.filter(function (d) {
+                                return (d.Survived === 0 && d.Pclass === 2);
+                            });
+                            var p_2_length = p_class_2.length;
+
+                            var p_class_3 = data.filter(function (d) {
+                                return (d.Survived === 0 && d.Pclass === 3);
+                            });
+                            var p_3_length = p_class_3.length;
+
+                            var y_domain = Math.max(p_1_length, p_2_length, p_3_length);
 
                             var x = d3.scaleBand().domain([1, 2, 3]).range([50, 350]);
                             var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
@@ -262,7 +273,7 @@
                             var g = svg.append("g").attr("transform", "translate(50,0)");
 
                             g.selectAll("rect")
-                                .data(bar_chart_0)
+                                .data(data)
                                 .enter()
                                 .append("rect")
                                 .attr("x", function (d) { return x(d.Pclass); })
