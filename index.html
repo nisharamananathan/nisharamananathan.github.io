@@ -125,6 +125,53 @@
                                 .attr("d", arc)
                                 .attr("fill", function (d, i) { return color[i]; });
 
+                            // add interactivity (tooltip)
+                            // var tooltip = d3.select("#tooltip");
+
+                            // var num_male_0 = data.filter(function (d) {
+                            //     return (d.Survived === 0 && d.Sex === "male");
+                            // }).length;
+                            
+                            // var num_female_0 = data.filter(function (d) {
+                            //     return (d.Survived === 0 && d.Sex === "female");
+                            // }).length;
+                            
+                            // var percent_male_0 = num_male_0 / (num_male_0 + num_female_0);
+                            // var percent_female_0 = num_female_0 / (num_male_0 + num_female_0);
+
+                            // var num_male_1 = data.filter(function (d) {
+                            //     return (d.Survived === 0 && d.Sex === "male");
+                            // }).length;
+                            
+                            // var num_female_1 = data.filter(function (d) {
+                            //     return (d.Survived === 0 && d.Sex === "female");
+                            // }).length;
+                            
+                            // var percent_male_1 = num_male_1 / (num_male_1 + num_female_1);
+                            // var percent_female_1 = num_female_1 / (num_male_1 + num_female_1);
+
+                            // g.selectAll("arc")
+                            //     .data(pie(pieData))
+                            //     .enter()
+                            //     .append("path")
+                            //     .attr("d", arc)
+                            //     .attr("fill", function (d, i) { return color[i]; })
+                            //     .on("mouseover", function (d) {
+                            //         var tooltipText = d.data.label + " (" + d.data.percent.toFixed(1) + "%)";
+
+                            //         var tooltipText = "Gender Distribution for " + d.data.label + ":<br>"
+                            //             + "Male: " + genderDistribution.male + "<br>"
+                            //             + "Female: " + genderDistribution.female;
+
+                            //         tooltip.html(tooltipText)
+                            //             .style("visibility", "visible")
+                            //             .style("left", (d3.event.pageX + 10) + "px")
+                            //             .style("top", (d3.event.pageY - 20) + "px");
+                            //     })
+                            //     .on("mouseout", function () {
+                            //         tooltip.style("visibility", "hidden");
+                            //     });
+
                             // add annotations to pie chart
                             var annotation = g.selectAll("arc")
                                 .data(pie(pieData))
@@ -145,40 +192,6 @@
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
                                     return d.data.label + " (" + percent.toFixed(1) + "%)";
                                 });
-
-                            // add interactivity (tooltip)
-                            // var tooltip = d3.select("#tooltip");
-
-                            // g.selectAll("arc")
-                            //     .data(pie(pieData))
-                            //     .enter()
-                            //     .append("path")
-                            //     .attr("d", arc)
-                            //     .attr("fill", function (d, i) { return color[i]; })
-                            //     .on("mouseover", function (d) {
-                            //         var gender = data.filter(function (item) {
-                            //             return item.Survived === d.data.label;
-                            //         }).reduce(function (accumulator, item) {
-                            //             if (item.Sex === "male") {
-                            //                 accumulator.male++;
-                            //             } else if (item.Sex === "female") {
-                            //                 accumulator.female++;
-                            //             }
-                            //             return accumulator;
-                            //         }, { male: 0, female: 0 });
-
-                            //         var text = "Gender Distribution for " + d.data.label + ":<br>"
-                            //             + "Male: " + gender.male + "<br>"
-                            //             + "Female: " + gender.female;
-
-                            //         tooltip.text(text)
-                            //             .style("visibility", "visible")
-                            //             .style("left", (d3.event.pageX + 10) + "px")
-                            //             .style("top", (d3.event.pageY - 20) + "px");
-                            //     })
-                            //     .on("mouseout", function () {
-                            //         tooltip.style("visibility", "hidden");
-                            //     });
                         }
                         pieChart();
                     </script>
