@@ -249,6 +249,10 @@
                             var width = 400;
                             var height = 400;
 
+                            var new_data = data.filter(function (d) {
+                                return d.Survived === 0;
+                            });
+
                             var p_class_1 = data.filter(function (d) {
                                 return (d.Survived === 0 && d.Pclass === 1);
                             });
@@ -273,7 +277,7 @@
                             var g = svg.append("g").attr("transform", "translate(50,0)");
 
                             g.selectAll("rect")
-                                .data(data)
+                                .data(new_data)
                                 .enter()
                                 .append("rect")
                                 .attr("x", function (d) { return x(d.Pclass); })
