@@ -184,7 +184,6 @@
                                     var centroid = arc.centroid(d);
                                     return "translate(" + centroid[0] + "," + centroid[1] + ")";
                                 })
-                                .attr("text-anchor", "middle")
                                 .style("font-family", "Trebuchet MS")
                                 .text(function (d) {
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
