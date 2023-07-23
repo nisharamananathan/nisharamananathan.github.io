@@ -92,17 +92,23 @@
                             data.forEach(function (d) {
                                 d.Survived = +d.Survived;
                                 d.Sex = d.Sex.trim();
+                                d.Age = +d.Age;
                             });
 
                             var color = ['red', 'green'];
 
                             var totalPassengers = data.length;
-                            var male = data.filter(function (d) { return d.Sex === "male"; }).length;
-                            var female = data.filter(function (d) { return d.Sex === "female"; }).length;
+                            var male = data.filter(function (d) { return d.Sex === "male"; });
+                            var female = data.filter(function (d) { return d.Sex === "female"; });
+                            var maleCount = male.length;
+                            var femaleCount = female.length;
+
+                            var maleAge = d3.mean(male, function (d) { return d.Age; });
+                            var femaleAge = d3.mean(female, function (d) { return d.Age; });
 
                             var pieData = [
-                                { label: "Male", count: male },
-                                { label: "Female", count: female }
+                                { label: "Male", count: maleCount, averageAge: maleAverageAge },
+                                { label: "Female", count: femaleCount, averageAge: femaleAverageAge }
                             ];
 
                             var width = 400;
@@ -148,6 +154,27 @@
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
                                     return d.data.label + " (" + percent.toFixed(1) + "%)";
                                 });
+
+                            // add tooltip to pie chart
+                            var tip = d3.tip()
+                                .attr("class", "d3-tip")
+                                .offset([80, 80])
+                                .html(function (d) {
+                                    var gender = d.data.label;
+                                    var count = d.data.count;
+                                    var averageAge = d.data.averageAge.toFixed(2);
+                                    return gender + "<br>Count: " + count + " passengers<br>Average Age: " + averageAge + " years";
+                                });
+
+                            svg.call(tip);
+
+                            var arcs = g.selectAll("arc")
+                                .data(pie(pieData))
+                                .enter()
+                                .append("g")
+                                .attr("class", "arc")
+                                .on("mouseover", tip.show)
+                                .on("mouseout", tip.hide);
                         }
                         pieChart();
                     </script>
