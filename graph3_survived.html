@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: rgb(195, 240, 241);
+        }
+
+        h1 {
+            color: #333;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 65px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 35px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        p {
+            color: #333;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 25px;
+            text-align: left;
+        }
+
+        #controls {
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Data Visualization Project CS 416</h1>
+    <p>
+        This dataset contains information about passengers on the Titanic, including an ID, whether a passenger survived
+        or not, class (1, 2, or 3), name, sex, age, number of siblings or spouses on the Titanic, number of parents or
+        children on the Titanic, ticket number, and ticket fare. The charts below dissect this information to determine
+        3 things:
+    </p>
+    <p>
+        (1) The percent of passengers on the Titanic who were men and women.
+    </p>
+    <p>
+        (2) The percent of passengers that survived vs did not survive the Titanic. This chart also includes details on
+        the gender distribution of men and women who survived vs did not survive.
+    </p>
+    <p>
+        (3) The amount of passengers in each class that did not survive the Titanic
+    </p>
+    <br>
+    <hr>
+    <br>
+    <div id="slideshow">
+        <div id="slide 3">
+            <h2>Bar Chart of Survived Titanic Passengers Grouped by Class</h2>
+            <p>
+                This bar chart shows the number of passengers per class who survived the Titanic.
+            </p>
+            <div id="controls">
+                <a href="graph3_survived.html">
+                    <button id="survived">Survived Bar Chart</button>
+                </a>
+            </div>
+            <div id="controls">
+                <a href="graph3.html">
+                    <button id="not survived">Not Survived Bar Chart</button>
+                </a>
+            </div>
+            <div id="chart_3">
+                <script src='https://d3js.org/d3.v5.min.js'></script>
+                <style>
+                    rect {
+                        fill: red;
+                        stroke: black;
+                    }
+
+                    .bar-label {
+                        font-family: 'Trebuchet MS', sans-serif;
+                    }
+
+                    .axis-title {
+                        font-family: 'Trebuchet MS', sans-serif;
+                        font-weight: bold;
+                        text-anchor: middle;
+                    }
+                </style>
+
+                <body>
+                    <svg id="chart_3_svg" width=400 height=400></svg>
+                    <script>
+                        // create bar chart
+                        async function barChart() {
+                            var response = await fetch("Titanic-Dataset.csv");
+                            var data = await response.text();
+                            data = d3.csvParse(data);
+
+                            data.forEach(function (d) {
+                                d.Pclass = +d.Pclass;
+                                d.Survived = +d.Survived;
+                            });
+
+                            filterData(data);
+                        }
+
+                        function filterData(data) {
+
+                            var width = 400;
+                            var height = 400;
+
+                            var new_data = data.filter(function (d) {
+                                return d.Survived === 1;
+                            });
+
+                            var p_1_length = new_data.filter(function (d) {
+                                return d.Pclass === 1;
+                            }).length;
+
+                            var p_2_length = new_data.filter(function (d) {
+                                return d.Pclass === 2;
+                            }).length;
+
+                            var p_3_length = new_data.filter(function (d) {
+                                return d.Pclass === 3;
+                            }).length;
+
+                            var y_domain = Math.max(p_1_length, p_2_length, p_3_length);
+                            var x = d3.scaleBand().domain([1, 2, 3]).range([50, 350]).padding(0.1);
+                            var y = d3.scaleLinear().domain([0, y_domain]).range([350, 50]);
+
+                            var svg = d3.select("svg").attr("width", width).attr("height", height);
+                            var g = svg.append("g").attr("transform", "translate(50,0)");
+
+                            g.selectAll("rect")
+                                .data([p_1_length, p_2_length, p_3_length])
+                                .enter()
+                                .append("rect")
+                                .attr("x", function (d, i) { return x(i + 1); })
+                                .attr("y", function (d) { return y(d); })
+                                .attr("width", x.bandwidth())
+                                .attr("height", function (d) { return 350 - y(d); })
+
+                            svg.append("g")
+                                .attr("transform", "translate(100,0)")
+                                .call(d3.axisLeft(y));
+
+                            svg.append("g")
+                                .attr("transform", "translate(50,350)")
+                                .call(d3.axisBottom(x));
+
+                            // add annotations to bar chart
+                            g.selectAll(".bar-label")
+                                .data([p_1_length, p_2_length, p_3_length])
+                                .enter()
+                                .append("text")
+                                .attr("class", "bar-label")
+                                .attr("x", function (d, i) { return x(i + 1) + x.bandwidth() / 2; })
+                                .attr("y", function (d) { return y(d) - 10; })
+                                .attr("text-anchor", "middle")
+                                .text(function (d) { return d; });
+
+                            // add xis titles
+                            svg.append("text")
+                                .attr("class", "axis-title")
+                                .attr("x", 250)
+                                .attr("y", 390)
+                                .text("Class Number");
+
+                            svg.append("text")
+                                .attr("class", "axis-title")
+                                .attr("x", -200)
+                                .attr("y", 50)
+                                .attr("transform", "rotate(-90)")
+                                .text("Number of Passengers Survived");
+                        }
+                        barChart();
+                    </script>
+            </div>
+            <p>
+                As shown, more passengers on the Titanic in class 3 did not survive the accident compared to those in
+                groups 1 and 2. Amongst groups 1 and 2, more passengers in group 2 did not survive the Titanic. 80
+                passengers in group 1, 97 passengers in group 2, and 372 passengers in group 3 did not survive the
+                Titanic.
+            </p>
+            <br>
+</body>
+
+</div>
+<div id="controls">
+    <a href="graph2.html">
+        <button id="prev">Previous</button>
+    </a>
+</div>
+</div>
+</div>
+</body>
+
+</html>
