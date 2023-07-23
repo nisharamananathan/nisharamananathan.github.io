@@ -134,27 +134,6 @@
                                 .attr("fill", function (d, i) { return color[i]; });
 
                             // add annotations to pie chart
-                            // var annotation = g.selectAll("arc")
-                            //     .data(pie(pieData))
-                            //     .enter()
-                            //     .append("g");
-
-                            // annotation.append("path")
-                            //     .attr("d", arc)
-                            //     .attr("fill", function (d, i) { return color[i]; });
-
-                            // annotation.append("text")
-                            //     .attr("transform", function (d) {
-                            //         var centroid = arc.centroid(d);
-                            //         return "translate(" + centroid[0] + "," + centroid[1] + ")";
-                            //     })
-                            //     .style("text-anchor", "middle")
-                            //     .style("font-family", "Trebuchet MS")
-                            //     .text(function (d) {
-                            //         var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
-                            //         return d.data.label + " (" + percent.toFixed(1) + "%)";
-                            //     });
-
                             var annotation = g.selectAll("arc")
                                 .data(pie(pieData))
                                 .enter()
