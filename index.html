@@ -134,19 +134,38 @@
                                 .attr("fill", function (d, i) { return color[i]; });
 
                             // add annotations to pie chart
-                            var annotation = g.selectAll("arc")
+                            // var annotation = g.selectAll("arc")
+                            //     .data(pie(pieData))
+                            //     .enter()
+                            //     .append("g");
+
+                            // annotation.append("path")
+                            //     .attr("d", arc)
+                            //     .attr("fill", function (d, i) { return color[i]; });
+
+                            // annotation.append("text")
+                            //     .attr("transform", function (d) {
+                            //         var centroid = arc.centroid(d);
+                            //         return "translate(" + centroid[0] + "," + centroid[1] + ")";
+                            //     })
+                            //     .attr("text-anchor", "middle")
+                            //     .style("font-family", "Trebuchet MS")
+                            //     .text(function (d) {
+                            //         var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
+                            //         return d.data.label + " (" + percent.toFixed(1) + "%)";
+                            //     });
+
+                            var text = g.selectAll("arc")
                                 .data(pie(pieData))
                                 .enter()
-                                .append("g");
-
-                            annotation.append("path")
-                                .attr("d", arc)
-                                .attr("fill", function (d, i) { return color[i]; });
-
-                            annotation.append("text")
+                                .append("text")
                                 .attr("transform", function (d) {
                                     var centroid = arc.centroid(d);
-                                    return "translate(" + centroid[0] + "," + centroid[1] + ")";
+                                    var angle = (d.startAngle + d.endAngle) / 2;
+                                    var labelRadius = radius * 0.6;
+                                    var x = centroid[0] + labelRadius * Math.cos(angle);
+                                    var y = centroid[1] + labelRadius * Math.sin(angle);
+                                    return "translate(" + x + "," + y + ")";
                                 })
                                 .attr("text-anchor", "middle")
                                 .style("font-family", "Trebuchet MS")
