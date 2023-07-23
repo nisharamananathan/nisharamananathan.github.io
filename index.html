@@ -154,7 +154,7 @@
                                 });
 
                             // add tooltip to pie chart
-                            var tipSurvived = d3.tip()
+                            var tipsurvived = d3.tip()
                                 .attr("class", "d3-tip")
                                 .offset([-40, 10])
                                 .html(function (d) {
@@ -163,7 +163,7 @@
                                         + "Female: " + d.data.genderData.female;
                                 });
 
-                            var tipNotSurvived = d3.tip()
+                            var tipnotsurvived = d3.tip()
                                 .attr("class", "d3-tip")
                                 .offset([40, 10])
                                 .html(function (d) {
@@ -172,8 +172,8 @@
                                         + "Female: " + d.data.genderData.female;
                                 });
 
-                            svg.call(tipSurvived);
-                            svg.call(tipNotSurvived);
+                            svg.call(tipsurvived);
+                            svg.call(tipnotsurvived);
 
                             var arcs = g.selectAll("arc")
                                 .data(pie(pieData))
