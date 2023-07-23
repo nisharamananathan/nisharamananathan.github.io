@@ -48,34 +48,31 @@
         on the Titanic, ticket number, and ticket fare. The charts below dissect this information to determine 3 things:
     </p>
     <p>
-        (1) The percent of passengers that survived vs did not survive the Titanic. This chart also includes details on
+        (1) The percent of passengers on the Titanic who were men and women. This chart also provides an overview of the
+        average age of these passengers on the Titanic.
+    </p>
+    <p>
+        (2) The percent of passengers that survived vs did not survive the Titanic. This chart also includes details on
         the gender distribution of men and women who survived vs did not survive.
     </p>
     <p>
-        (2) The amount of passengers in each class that did not survive the Titanic
-    </p>
-    <p>
-        (3) The percent of passengers on the Titanic who were men and women. This chart also provides an overview of the
-        average age of these passengers on the Titanic.
+        (3) The amount of passengers in each class that did not survive the Titanic
     </p>
     <br>
     <hr>
     <br>
     <div id="slideshow">
         <div id="slide 1">
-            <h2>Pie Chart of Survived and Not Survived Titanic Passengers</h2>
+            <h2>Pie Chart of Men vs Women on the Titanic</h2>
             <p>
-                This pie chart shows the percentage of passengers on the Titanic that survived and did not survive. By
-                hovering over the pie slices, information about the number of passengers who survived and did not
-                survive as well as number of men and women in each category appear.
+                This pie chart shows the percentage of men vs women passengers on the Titanic.
             </p>
             <br>
             <div id="chart_1">
                 <script src='https://d3js.org/d3.v5.min.js'></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
                 <style>
                     path {
-                        stroke: black;
+                        stroke: rgb(0, 0, 0);
                     }
 
                     .annotation {
@@ -94,22 +91,19 @@
 
                             data.forEach(function (d) {
                                 d.Survived = +d.Survived;
+                                d.Sex = d.Sex.trim();
                             });
 
-                            var color = ['green', 'red'];
+                            var color = ['red', 'green'];
 
-                            var survived = d3.sum(data, function (d) { return d.Survived; });
-                            var not_survived = data.length - survived;
+                            var totalPassengers = data.length;
+                            var male = data.filter(function (d) { return d.Sex === "male"; }).length;
+                            var female = data.filter(function (d) { return d.Sex === "female"; }).length;
 
                             var pieData = [
-                                { label: "Survived", count: survived, genderData: extractGenderData(data, 1) },
-                                { label: "Not Survived", count: not_survived, genderData: extractGenderData(data, 0) }
+                                { label: "Male", count: male },
+                                { label: "Female", count: female }
                             ];
-
-                            // var pieData = [
-                            //     { label: "Survived", count: survived },
-                            //     { label: "Not Survived", count: not_survived }
-                            // ];
 
                             var width = 400;
                             var height = 400;
@@ -133,7 +127,7 @@
                                 .attr("d", arc)
                                 .attr("fill", function (d, i) { return color[i]; });
 
-                            // add annotations to pie chart
+                            //add annotations to pie chart
                             var annotation = g.selectAll("arc")
                                 .data(pie(pieData))
                                 .enter()
@@ -154,69 +148,14 @@
                                     var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
                                     return d.data.label + " (" + percent.toFixed(1) + "%)";
                                 });
-
-                            // add tooltip to pie chart
-                            var tip = d3.tip()
-                                .attr("class", "d3-tip")
-                                .offset([80, 90])
-                                .html(function (d) {
-                                    return d.data.label + " (" + d.data.count + " passengers)<br>"
-                                        + "Male: " + d.data.genderData.male + " passengers<br>"
-                                        + "Female: " + d.data.genderData.female + " passengers";
-                                });
-
-                            svg.call(tip);
-
-                            var arcs = g.selectAll("arc")
-                                .data(pie(pieData))
-                                .enter()
-                                .append("g")
-                                .attr("class", "arc")
-                                .on("mouseover", tip.show)
-                                .on("mouseout", tip.hide);
-
-                            arcs.append("path")
-                                .attr("d", arc)
-                                .attr("fill", function (d, i) { return color[i]; });
-
-                            arcs.append("text")
-                                .attr("transform", function (d) {
-                                    var centroid = arc.centroid(d);
-                                    return "translate(" + centroid[0] + "," + centroid[1] + ")";
-                                })
-                                .attr("text-anchor", "middle")
-                                .style("font-family", "Trebuchet MS")
-                                .text(function (d) {
-                                    var percent = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
-                                    return d.data.label + " (" + percent.toFixed(1) + "%)";
-                                });
-                        }
-
-                        function extractGenderData(data, survivedvalue) {
-                            var genderData = {
-                                male: 0,
-                                female: 0
-                            };
-
-                            data.forEach(function (d) {
-                                if (d.Survived === survivedvalue) {
-                                    if (d.Sex === "male") {
-                                        genderData.male++;
-                                    } else if (d.Sex === "female") {
-                                        genderData.female++;
-                                    }
-                                }
-                            });
-
-                            return genderData;
                         }
                         pieChart();
                     </script>
             </div>
             <br>
             <p>
-                As shown, a higher percentage of passengers did not survive the Titanic compared to those that did
-                survive. Only 38.4% of passengers survived while 61.6% of passengers did not.
+                As shown, a higher percentage of passengers on the Titanic were men compared to women. Only 35.2% of
+                passengers were women while 64.8% of passengers were male.
             </p>
             <br>
 </body>
