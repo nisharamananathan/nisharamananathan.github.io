@@ -154,16 +154,26 @@
                                 });
 
                             // add tooltip to pie chart
-                            var tip = d3.tip()
+                            var tipSurvived = d3.tip()
                                 .attr("class", "d3-tip")
-                                .offset([40, 10])
+                                .offset([-40, 10])
                                 .html(function (d) {
-                                    return d.data.label + " (" + d.data.count + " passengers)<br>"
+                                    return "Survived: " + d.data.count + " passengers<br>"
                                         + "Male: " + d.data.genderData.male + "<br>"
                                         + "Female: " + d.data.genderData.female;
                                 });
 
-                            svg.call(tip);
+                            var tipNotSurvived = d3.tip()
+                                .attr("class", "d3-tip")
+                                .offset([40, 10])
+                                .html(function (d) {
+                                    return "Not Survived: " + d.data.count + " passengers<br>"
+                                        + "Male: " + d.data.genderData.male + "<br>"
+                                        + "Female: " + d.data.genderData.female;
+                                });
+
+                            svg.call(tipSurvived);
+                            svg.call(tipNotSurvived);
 
                             var arcs = g.selectAll("arc")
                                 .data(pie(pieData))
